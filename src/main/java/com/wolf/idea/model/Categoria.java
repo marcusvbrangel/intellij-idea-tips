@@ -5,25 +5,25 @@ import java.util.UUID;
 
 public class Categoria {
 
-    private UUID id;
+    private CategoriaID categoriaID;
 
     private String nome;
 
-    private Categoria(String nome) {
-        this.id = UUID.randomUUID();
+    private Categoria(CategoriaID categoriaID, String nome) {
+        this.categoriaID = categoriaID;
         this.nome = nome;
     }
 
     public static Categoria of(String nome) {
-        return new Categoria(nome);
+        return new Categoria(new CategoriaID(UUID.randomUUID()), nome);
     }
 
-    public UUID getId() {
-        return id;
+    public CategoriaID getCategoriaID() {
+        return categoriaID;
     }
 
-    public void setId(UUID id) {
-        this.id = id;
+    public void setCategoriaID(CategoriaID categoriaID) {
+        this.categoriaID = categoriaID;
     }
 
     public String getNome() {
@@ -38,18 +38,18 @@ public class Categoria {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Categoria categoria = (Categoria) o;
-        return Objects.equals(id, categoria.id);
+        return Objects.equals(categoriaID, categoria.categoriaID) && Objects.equals(nome, categoria.nome);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hash(categoriaID, nome);
     }
 
     @Override
     public String toString() {
         return "Categoria{" +
-                "id=" + id +
+                "categoriaID=" + categoriaID +
                 ", nome='" + nome + '\'' +
                 '}';
     }
