@@ -9,13 +9,13 @@ public class Categoria {
 
     private String nome;
 
-    private Categoria(UUID id, String nome) {
-        this.id = id;
+    private Categoria(String nome) {
+        this.id = UUID.randomUUID();
         this.nome = nome;
     }
 
-    public static Categoria with(UUID id, String nome) {
-        return new Categoria(id, nome);
+    public static Categoria of(String nome) {
+        return new Categoria(nome);
     }
 
     public UUID getId() {
@@ -53,6 +53,4 @@ public class Categoria {
                 ", nome='" + nome + '\'' +
                 '}';
     }
-
-    // Add a new method to the Categoria class...
 }
