@@ -1,5 +1,7 @@
 package com.wolf.idea.model;
 
+import com.wolf.idea.exception.CategoriaInvalidaException;
+
 import java.util.Objects;
 import java.util.UUID;
 
@@ -15,6 +17,7 @@ public class Categoria {
     }
 
     public static Categoria of(String nome) {
+        validar(nome);
         return new Categoria(new CategoriaID(UUID.randomUUID()), nome);
     }
 
@@ -32,6 +35,12 @@ public class Categoria {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    private static void validar(String nome) {
+        if (nome == null || nome.isBlank()) {
+            throw new CategoriaInvalidaException("Nome da categoria não pode ser nulo ou vazio");
+        }
     }
 
     @Override
