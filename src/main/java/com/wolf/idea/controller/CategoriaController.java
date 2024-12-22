@@ -1,6 +1,7 @@
 package com.wolf.idea.controller;
 
 import com.wolf.idea.dto.CategoriaResponse;
+import com.wolf.idea.exception.CategoriaInvalidaException;
 import com.wolf.idea.model.Categoria;
 import com.wolf.idea.service.CategoriaService;
 import org.springframework.http.ResponseEntity;
@@ -25,9 +26,15 @@ public class CategoriaController {
     }
 
     @PostMapping
-    public ResponseEntity<CategoriaResponse> salvar(@RequestBody Categoria categoria) {
-        Categoria categoriaCriada = categoriaService.salvar(categoria);
-        return ResponseEntity.ok(convertCategoriaToCategoriaResponse(categoriaCriada));
+    public ResponseEntity<?> salvar(@RequestBody Categoria categoria) {
+        Categoria categoriaCriada = null;
+        try {
+            categoriaCriada = categoriaService.salvar(categoria);
+            return ResponseEntity.ok(convertCategoriaToCategoriaResponse(categoriaCriada));
+        } catch (CategoriaInvalidaException exception) {
+            return ResponseEntity.badRequest().body(exception.getMessage());
+        }
+
     }
 
     private CategoriaResponse convertCategoriaToCategoriaResponse(Categoria categoria) {
