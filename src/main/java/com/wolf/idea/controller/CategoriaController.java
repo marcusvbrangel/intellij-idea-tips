@@ -1,5 +1,6 @@
 package com.wolf.idea.controller;
 
+import com.wolf.idea.dto.CategoriaResponse;
 import com.wolf.idea.model.Categoria;
 import com.wolf.idea.service.CategoriaService;
 import org.springframework.http.ResponseEntity;
@@ -24,10 +25,13 @@ public class CategoriaController {
     }
 
     @PostMapping
-    public ResponseEntity<Categoria> salvar(@RequestBody Categoria categoria) {
-        return ResponseEntity.ok(categoriaService.salvar(categoria));
+    public ResponseEntity<CategoriaResponse> salvar(@RequestBody Categoria categoria) {
+        Categoria categoriaCriada = categoriaService.salvar(categoria);
+        return ResponseEntity.ok(convertCategoriaToCategoriaResponse(categoriaCriada));
     }
 
-
+    private CategoriaResponse convertCategoriaToCategoriaResponse(Categoria categoria) {
+        return new CategoriaResponse(categoria.getCategoriaID().getId().toString(), categoria.getNome());
+    }
 
 }
