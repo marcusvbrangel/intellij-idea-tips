@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: intellij-idea
+
+server:
+    port: 8085
