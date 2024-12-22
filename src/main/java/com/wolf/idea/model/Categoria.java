@@ -53,4 +53,6 @@ public class Categoria {
                 ", nome='" + nome + '\'' +
                 '}';
     }
+
+    // Add a new method to the Categoria class...
 }
